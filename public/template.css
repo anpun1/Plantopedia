@@ -1,0 +1,61 @@
+.background {
+    background-color: #FFDB33;
+}
+
+.textarea
+{
+resize: none;
+overflow-y: scroll;
+height:200px;
+}
+
+.ul
+{
+list-style-type: none;
+}
+
+.main-content{
+max-width: 1440px;
+align-self: center;
+}
+
+.main-content-box {
+    display: flex;
+    justify-content: center;
+}
+  
+  .row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;    
+}
+
+.column {
+    width: 400px;
+    height: 400px;
+    padding: 8px;
+    margin: 8px;
+}
+
+.img-5 {
+    background-image: url('/images/5.jpg');
+    background-position: center;
+    background-size: cover;
+}
+
+
+.img-6 {
+    background-image: url('/images/6.jpg');
+    background-position: center;
+    background-size: cover;
+}
+
+.column-text {
+    padding: 8px;
+}
+
+#plantid {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
