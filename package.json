@@ -1,13 +1,12 @@
 {
-  "name": "hello-world",
+  "name": "Plantopedia",
   "version": "1.0.0",
-  "description": "Hello world with express and node.js",
-  "main": "app.js",
+  "description": "Plant idenntification app express and node.js",
+  "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "OSU",
-  "license": "ISC",
+  "author": "Anusha Pundu",
   "dependencies": {
     "body-parser": "^1.13.3",
     "express": "^4.13.2",
