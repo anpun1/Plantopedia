@@ -9,7 +9,7 @@ app.set('view engine', 'handlebars');
 app.use(express.static('public'));
 var bodyParser = require('body-parser');
 var fileUpload = require('express-fileupload');
-app.set('port', 65342);
+app.set('port', process.env.PORT);
 
 
 app.use(bodyParser.urlencoded({ extended: true }));
