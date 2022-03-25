@@ -41,7 +41,6 @@ app.use(fileUpload({
 app.post('/uploadimage', (req, res) => {
   console.log(req.files);
   const fs = require('fs'); // File System | Node.js
-  const axios = require('axios'); // HTTP client
   const FormData = require('form-data'); // Readable "multipart/form-data" streams
 
   let form = new FormData();
