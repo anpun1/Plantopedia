@@ -12,6 +12,7 @@ var fileUpload = require('express-fileupload');
 app.set('port', process.env.PORT);
 
 
+
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
@@ -51,13 +52,18 @@ app.post('/uploadimage', (req, res) => {
 
   try {
     fetch(
-      'https://my-api.plantnet.org/v2/identify/all?api-key=2b10aCEPciOZhoAv1diYvYtR6e',
+      'https://my-api.plantnet.org/v2/identify/all?api-key=' + process.env.PLANTNET_API_KEY,
       {
         method: 'POST',
         headers: form.getHeaders(),
         body: form,
       })
-      .then(response => response.json())
+      .then(response => {
+        if(response.status === 404){
+          res.status(404).send('We were not able to find a plant in this photo. Please try a different photo.');
+        }
+        return response.json()
+      })
       .then(result => {
         res.send(JSON.stringify(result))
       })

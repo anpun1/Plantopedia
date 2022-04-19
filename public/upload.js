@@ -70,7 +70,7 @@ document.getElementById('submit-btn').addEventListener('click', (event) => {
                 link.click(); // This will download the data file named "my_data.csv".
             });
          } else {
-            document.getElementById('plantid').textContent = 'Error with network request';
+            document.getElementById('plantid').textContent = xhr.response;
         }
 
     });
