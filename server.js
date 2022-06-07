@@ -9,6 +9,7 @@ app.set('view engine', 'handlebars');
 app.use(express.static('public'));
 var bodyParser = require('body-parser');
 var fileUpload = require('express-fileupload');
+const { getMaxListeners } = require('process');
 app.set('port', process.env.PORT);
 
 
@@ -46,7 +47,7 @@ app.post('/uploadimage', (req, res) => {
 
   let form = new FormData();
 
-    //console.log(req);
+  //console.log(req);
   form.append('organs', req.body.organs);
   form.append('images', fs.createReadStream(req.files.thefile.tempFilePath));
 
@@ -59,7 +60,7 @@ app.post('/uploadimage', (req, res) => {
         body: form,
       })
       .then(response => {
-        if(response.status === 404){
+        if (response.status === 404) {
           res.status(404).send('We were not able to find a plant in this photo. Please try a different photo.');
         }
         return response.json()
@@ -78,8 +79,27 @@ app.post('/uploadimage', (req, res) => {
 
 });
 
+function sendMail() {
+  //getting values from input fields
+  var name = Form.email.value;
+  var text = Form.text.value;
 
+  //Sending email
+  Email.send({
+    Host: "smtp.gmail.com",
+    Username: process.env.GMAIL_USER,
+    Password: process.env.GMAIL_PWD,
+    To: GMAIL_USER,
+    From: email,
+    Subject: "Plantopedia Contact Us Form",
+    Body: text
+  }).then(function (message) {
 
+    alert("Email sent successfully")
+
+  });
+
+}
 
 app.listen(app.get('port'), function () {
   console.log('Express started on http://localhost:' + app.get('port') + '; press Ctrl-C to terminate.');
