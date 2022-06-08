@@ -1,4 +1,4 @@
-<form method="POST" name=""Form">
+<form method="POST" id = "Form" name="Form" action="/contact">
   <div class="form-group">
     <label for="exampleInputEmail1">Email address</label>
     <input name="email" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
@@ -11,7 +11,15 @@
       placeholder="Please share any questions or feedback!"></textarea>
   </div>
   <div>
-    <input type="button" value="Send Email" onclick="sendMail()">
+    <input type="submit" value="Send Email" onclick="myFunction()">
   </div>
 </form>
-<script src="https://smtpjs.com/v3/smtp.js"></script>
+<script >
+  var form = document.getElementById("Form");
+  function myFunction() {
+    if (form.checkValidity()) {
+      alert("Message Sent Successfully!");
+    }
+  }
+
+</script>

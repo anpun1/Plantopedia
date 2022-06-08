@@ -1,6 +1,6 @@
 var express = require('express');
 var fetch = require('node-fetch');
-
+const fs = require('fs');
 var app = express();
 var exphbs = require('express-handlebars').create({ defaultLayout: 'main' });
 
@@ -10,7 +10,11 @@ app.use(express.static('public'));
 var bodyParser = require('body-parser');
 var fileUpload = require('express-fileupload');
 const { getMaxListeners } = require('process');
+const res = require('express/lib/response');
 app.set('port', process.env.PORT);
+app.use(express.urlencoded({
+  extended: true
+}))
 
 
 
@@ -79,29 +83,18 @@ app.post('/uploadimage', (req, res) => {
 
 });
 
-function sendMail() {
-  //getting values from input fields
-  var name = Form.email.value;
-  var text = Form.text.value;
+app.post('/contact',  (req, res) => {
+  
+    //getting values from input fields
+    var name = req.body.email;
+    var text = req.body.text;
 
-  //Sending email
-  Email.send({
-    Host: "smtp.gmail.com",
-    Username: process.env.GMAIL_USER,
-    Password: process.env.GMAIL_PWD,
-    To: GMAIL_USER,
-    From: email,
-    Subject: "Plantopedia Contact Us Form",
-    Body: text
-  }).then(function (message) {
+  fs.appendFileSync('contactform.csv', name +',' + text + '\n');
 
-    alert("Email sent successfully")
+  res.redirect("/contact");
+    });
 
-  });
-
-}
 
 app.listen(app.get('port'), function () {
   console.log('Express started on http://localhost:' + app.get('port') + '; press Ctrl-C to terminate.');
 });
-
