@@ -22,7 +22,6 @@ const { wakeDyno } = require('heroku-keep-awake');
 const PORT = process.env.PORT || 3000
 const DYNO_URL = 'https://plantopedia-heroku.herokuapp.com/';
 
-const app = express();
 
 app.listen(PORT, () => {
     wakeDyno(DYNO_URL); // Use this function when only needing to wake a single Heroku app.
