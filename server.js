@@ -27,9 +27,19 @@ function createDatabase() {
 }
 
 function insertDatabase(name, text) {
+  const ssl = {
+    ssl: true,
+    dialectOptions: {
+      ssl: {
+        require: true,
+        rejectUnauthorized: false
+      }
+    }
+  }
 
   const client = new Client({
-    connectionString: process.env.DATABASE_URL
+    connectionString: process.env.DATABASE_URL,
+    ...(process.env.TEST == "TRUE" ? {} : ssl)
   });
 
   client.connect();
