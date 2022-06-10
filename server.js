@@ -19,27 +19,28 @@ app.use(express.urlencoded({
 const { Client } = require('pg');
 
 
-const client = new Client({
-  connectionString: process.env.DATABASE_URL
-});
-
-client.connect();
-
-function createDatabase(){
-client.query('CREATE TABLE IF NOT EXISTS contacts(emailaddress VARCHAR(255),textmessage VARCHAR);', (err, res) => {
-  if (err) throw err;
-  console.log("Table created");
-});
+function createDatabase() {
+  client.query('CREATE TABLE IF NOT EXISTS contacts(emailaddress VARCHAR(255),textmessage VARCHAR);', (err, res) => {
+    if (err) throw err;
+    console.log("Table created");
+  });
 }
 
-function insertDatabase(name, text){
-client.query('INSERT INTO contacts (emailaddress, textmessage) VALUES ($1, $2)',[name, text,], (err, res) => {
-  if (err) {
-    console.log(err.stack)
-  } else {
-    console.log("Inserted Successfully") 
-  }
-});
+function insertDatabase(name, text) {
+
+  const client = new Client({
+    connectionString: process.env.DATABASE_URL
+  });
+
+  client.connect();
+
+  client.query('INSERT INTO contacts (emailaddress, textmessage) VALUES ($1, $2)', [name, text,], (err, res) => {
+    if (err) {
+      console.log(err.stack)
+    } else {
+      console.log("Inserted Successfully")
+    }
+  });
 }
 
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -107,16 +108,16 @@ app.post('/uploadimage', (req, res) => {
 
 });
 
-app.post('/contact',  (req, res) => {
-  
-    //getting values from input fields
-    var name = req.body.email;
-    var text = req.body.text;
+app.post('/contact', (req, res) => {
 
-    insertDatabase(name, text);
+  //getting values from input fields
+  var name = req.body.email;
+  var text = req.body.text;
+
+  insertDatabase(name, text);
 
   res.redirect("/contact");
-    });
+});
 
 
 app.listen(app.get('port'), function () {
